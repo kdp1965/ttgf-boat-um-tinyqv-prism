@@ -15,7 +15,7 @@ async def test_project(dut):
     dut._log.info("Start")
 
     # Set the clock period to 100 ns (10 MHz)
-    clock = Clock(dut.clk, 16, units="ns")
+    clock = Clock(dut.clk, 16, unit="ns")
     cocotb.start_soon(clock.start())
 
     # Setup simulated external devices
@@ -32,7 +32,7 @@ async def test_project(dut):
 
     async def simulate_74165():
         nonlocal input_shift
-        val_str = dut.uo_out.value.binstr.replace('x', '0').replace('z', '0')
+        val_str = str(dut.uo_out.value).upper().replace('X', '0').replace('Z', '0')
         prev_val = int(val_str, 2)
         while True:
             # Wait for rising edge of uo_out[7] (shift clock)
@@ -41,7 +41,7 @@ async def test_project(dut):
                continue;
 
             # Get uo_out as an integer safely ('x' -> 0)
-            val_str = dut.uo_out.value.binstr.replace('x', '0').replace('z', '0')
+            val_str = str(dut.uo_out.value).upper().replace('X', '0').replace('Z', '0')
             curr_val = int(val_str, 2)
 
             # Check for clear or clock
@@ -61,7 +61,7 @@ async def test_project(dut):
 
     async def simulate_74595():
         nonlocal output_shift, output_value
-        val_str = dut.uo_out.value.binstr.replace('x', '0').replace('z', '0')
+        val_str = str(dut.uo_out.value).upper().replace('X', '0').replace('Z', '0')
         prev_val = int(val_str, 2)
 
         while True:
@@ -70,7 +70,7 @@ async def test_project(dut):
             if chroma != 'gpio24':
                continue;
 
-            val_str = dut.uo_out.value.binstr.replace('x', '0').replace('z', '0')
+            val_str = str(dut.uo_out.value).upper().replace('X', '0').replace('Z', '0')
             curr_val = int(val_str, 2)
             if curr_val & 4 != 0:
                 # On store, latch output
@@ -88,7 +88,7 @@ async def test_project(dut):
 
     async def simulate_spimaster():
         nonlocal spi_data, spi_rx_data, chroma, spi_transfer, rx_byte
-        val_str = dut.uo_out.value.binstr.replace('x', '0').replace('z', '0')
+        val_str = str(dut.uo_out.value).upper().replace('X', '0').replace('Z', '0')
         prev_val = int(val_str, 2)
         baud = 16
         rx_byte = 0
@@ -120,7 +120,7 @@ async def test_project(dut):
                     dut.ui_in[1].value = 0
                 
                     # Read MISO line
-                    bit = dut.uo_out[2].value
+                    bit = int(dut.uo_out[2].value)
                     rx_byte = (rx_byte << 1) | bit
 
                 dut._log.info(f"    RX: {rx_byte:02X}")
@@ -135,7 +135,7 @@ async def test_project(dut):
 
     async def simulate_ws2822_slave():
         nonlocal chroma, grb
-        val_str = dut.uo_out.value.binstr.replace('x', '0').replace('z', '0')
+        val_str = str(dut.uo_out.value).upper().replace('X', '0').replace('Z', '0')
         prev_val = int(val_str, 2) & 2
         baud = 16
         grb  = 0
@@ -152,7 +152,7 @@ async def test_project(dut):
             clk_count += 1
 
             # Test for change in WS2812 data line
-            val_str = dut.uo_out.value.binstr.replace('x', '0').replace('z', '0')
+            val_str = str(dut.uo_out.value).upper().replace('X', '0').replace('Z', '0')
             val = int(val_str, 2) & 2
             if val == prev_val:
                continue

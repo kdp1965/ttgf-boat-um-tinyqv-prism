@@ -6,7 +6,10 @@ class Encoder():
 
     # number of cycles at the edges of transitions vulnerable to bouncing
     # % chance of a bounce within the edges
-    def __init__(self, clk, a, b, clocks_per_phase = 20, noise_cycles = 5, noise_chance = 0.5):
+    def __init__(self, clk, a, b, clocks_per_phase = 20, noise_cycles = 5, noise_chance = 0.5, seed = 1):
+        # Private RNG: the bounce noise is then the same in every run (and under
+        # every cocotb version), so the test is reproducible instead of flaky.
+        self.rng = random.Random(seed)
         # inputs
         self.clk = clk
         self.a = a
@@ -53,8 +56,8 @@ class Encoder():
         self.b.value = Encoder.CYCLE[self.b_phase]
 
         # randomly generate noise at edges
-        if (self.cycle - self.a_edge) < self.noise_cycles and random.random() < self.noise_chance:
-            self.a.value = random.randint(0, 1)
-        if (self.cycle - self.b_edge) < self.noise_cycles and random.random() < self.noise_chance:
-            self.b.value = random.randint(0, 1)
+        if (self.cycle - self.a_edge) < self.noise_cycles and self.rng.random() < self.noise_chance:
+            self.a.value = self.rng.randint(0, 1)
+        if (self.cycle - self.b_edge) < self.noise_cycles and self.rng.random() < self.noise_chance:
+            self.b.value = self.rng.randint(0, 1)
 

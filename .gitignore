@@ -17,3 +17,4 @@ test/verilator/frame.ppm
 test/verilator/*.nl.v
 harden*.log
 .venv-tt
+*.swp

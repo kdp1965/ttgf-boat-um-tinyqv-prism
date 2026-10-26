@@ -253,17 +253,17 @@ Document the registers that are used to interact with your peripheral
 
 | Address | Name          | Access | Description                                                         |
 |---------|---------------|--------|---------------------------------------------------------------------|
-| 0x00    | CTRL          | R/W    | Control register - see [CTRL Register](#ctrl-register-0x00) below   |
+| 0x00    | CTRL          | R/W    | Control register - see CTRL Register below   |
 | 0x04    | DBG_CTRL      | W      | Debug control                                                       |
 | 0x0C    | DBG_STAT      | W      | Debug status                                                        |
 | 0x10    | CFG_LSB       | W      | Config LSB (write second)                                           |
 | 0x14    | CFG_MSB       | W      | Config MSB (write first)                                            |
-| 0x18    | HOST_DATA     | R/W    | Host data - see [HOST_DATA Register](#host_data-register-0x18)      |
-| 0x19    | FIFO_DATA     | R      | FIFO read data - see [HOST_DATA Register](#host_data-register-0x18) |
-| 0x1A    | FIFO_STAT     | R      | FIFO status - see [HOST_DATA Register](#host_data-register-0x18)    |
-| 0x1B    | HOST_IN       | R/W    | Host input - see [HOST_DATA Register](#host_data-register-0x18)     |
-| 0x20    | COUNT_CFG     | R/W    | Counter config - see [COUNT_CFG Reg](#count_config-register-0x20)   |
-| 0x24    | COUNT_VAL     | R      | Counter values - see [COUNT_VAL Reg](#count_values-register-0x24)   |
+| 0x18    | HOST_DATA     | R/W    | Host data - see HOST_DATA Register      |
+| 0x19    | FIFO_DATA     | R      | FIFO read data - see HOST_DATA Register |
+| 0x1A    | FIFO_STAT     | R      | FIFO status - see HOST_DATA Register    |
+| 0x1B    | HOST_IN       | R/W    | Host input - see HOST_DATA Register     |
+| 0x20    | COUNT_CFG     | R/W    | Counter config - see COUNT_CFG Reg   |
+| 0x24    | COUNT_VAL     | R      | Counter values - see COUNT_VAL Reg   |
 | 0x34    | DECISION_TREE | R      | Decision tree data                                                  |
 | 0x38    | OUTPUT_DATA   | R      | Output data                                                         |
 | 0x3C    | INPUT_DATA    | R      | Input data                                                          |
