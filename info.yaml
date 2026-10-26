@@ -1,0 +1,69 @@
+# Tiny Tapeout project information
+project:
+  title:        "PRISM programmable FSM"      # Project title
+  author:       "Ken Pettit"      # Your name
+  discord:      "busy_courgette_50064"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  description:  "PRISM: a runtime-programmable Mealy state machine with counters, shifter, FIFO and debugger, controlled over SPI (GF180 port of the TinyQV peripheral)"      # One line description of what your project does
+  language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
+  clock_hz:     32000000  # Clock frequency in Hz (or 0 if not applicable)
+
+  # How many tiles your design occupies? A GF180 1x1 tile is about 347x161 uM.
+  tiles: "1x2"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 3x4 or 4x4
+
+  # Do not change the top module here.  Instead change tt_wrapper.v line 38 to refer to your module.
+  top_module:  "tt_um_pettit_tinyqv_prism"
+
+  # List your project's source files here.
+  # Source files must be in ./src and you must list each source file separately, one per line.
+  # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
+  source_files:
+    - "prism_periph.v"
+    - "latch_shift_reg.v"
+    - "latch_loader.v"
+    - "prism.v"
+    - "prism_sr_sit.v"
+    - "prism_latch_sit.v"
+    - "prism_latch_reg.v"
+    - "tt_wrapper.v"
+    - "test_harness/falling_edge_detector.sv"
+    - "test_harness/rising_edge_detector.sv"
+    - "test_harness/reclocking.sv"
+    - "test_harness/spi_reg.sv"
+    - "test_harness/synchronizer.sv"
+
+
+# The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
+# This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
+pinout:
+  # Inputs
+  ui[0]: "fsm_in0"
+  ui[1]: "fsm_in1"
+  ui[2]: "fsm_in2"
+  ui[3]: "fsm_in3"
+  ui[4]: "fsm_in4"
+  ui[5]: "fsm_in5"
+  ui[6]: "fsm_in6"
+  ui[7]: "host_in (read in CTRL[23])"
+
+  # Outputs
+  uo[0]: "unused (0)"
+  uo[1]: "fsm_out0"
+  uo[2]: "fsm_out1"
+  uo[3]: "fsm_out2"
+  uo[4]: "fsm_out3"
+  uo[5]: "fsm_out4"
+  uo[6]: "fsm_out5"
+  uo[7]: "fsm_out6"
+
+  # Bidirectional pins
+  uio[0]: "interrupt (out)"
+  uio[1]: "spi data_ready (out)"
+  uio[2]: ""
+  uio[3]: "spi_miso (out)"
+  uio[4]: "spi_cs_n (in)"
+  uio[5]: "spi_clk (in)"
+  uio[6]: "spi_mosi (in)"
+  uio[7]: ""
+
+# Do not change!
+yaml_version: 6
